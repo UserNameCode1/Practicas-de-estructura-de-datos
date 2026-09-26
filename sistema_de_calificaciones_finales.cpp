@@ -6,7 +6,7 @@ using namespace std;
 int main() {
     int opcion;
 
-    // Menú de opciones
+    // opciones
     cout << "=== SISTEMA DE CALIFICACIONES ===" << endl;
     cout << "1. Registrar estudiante" << endl;
     cout << "2. Ver informacion del programa" << endl;
@@ -26,7 +26,7 @@ int main() {
             float maxCalificacion = -1.0f;
             float minCalificacion = 11.0f;
 
-            // Limpieza de buffer de entrada
+            // 
             cin.ignore();
 
             cout << "\n--- REGISTRO DE ESTUDIANTE ---" << endl;
