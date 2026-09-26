@@ -42,7 +42,7 @@ int main() {
                 return 1;
             }
 
-            // Registro dinámico de calificaciones con ciclo for (Nivel 4)
+            // (Nivel 4)
             cout << "¿Cuantas calificaciones deseas registrar?: ";
             cin >> numCalificaciones;
 
@@ -70,7 +70,7 @@ int main() {
                     reprobadas++;
                 }
 
-                // Búsqueda de la calificación más alta y más baja sin arreglos (Nivel 4)
+                //  (Nivel 4)
                 if (calificacion > maxCalificacion) {
                     maxCalificacion = calificacion;
                 }
