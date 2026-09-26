@@ -62,7 +62,7 @@ int main() {
                     return 1;
                 }
 
-                // Acumulación de suma y conteo de aprobadas/reprobadas (Nivel 4)
+                // (Nivel 4)
                 suma += calificacion;
                 if (calificacion >= 6.0f) {
                     aprobadas++;
