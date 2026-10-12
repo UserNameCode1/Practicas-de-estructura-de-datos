@@ -1,64 +1,155 @@
 #include <iostream>
 #include <string>
+#include <limits>
 
 using namespace std;
 
+// =======================================================
+// PROTOTIPOS DE FUNCIONES
+// =======================================================
+void mostrarMenu();
+int leerEntero(string mensaje, int min, int max);
+float leerCalificacion(int numero);
+float calcularPromedio(float suma, int n);
+string obtenerEstado(float promedio);
+void registrarEstudiante();
+
+// =======================================================
+// FUNCIÓN PRINCIPAL
+// =======================================================
 int main() {
-    // Declaración de variables
-    string nombre;
-    int edad;
-    float calificacion1, calificacion2, calificacion3;
-    float promedio;
+    int opcion = 0;
 
-    // Entrada de datos de la persona
-    cout << "Ingrese el nombre del estudiante: ";
-    getline(cin, nombre);
+    do {
+        mostrarMenu();
+        opcion = leerEntero("Opcion: ", 1, 3);
 
-    cout << "Ingrese la edad del estudiante: ";
-    cin >> edad;
+        switch (opcion) {
+            case 1:
+                registrarEstudiante();
+                break;
 
-    // Validación de la edad (Nivel 2)
-    if (edad < 0 || edad > 120) {
-        cout << "Error: Edad invalida" << endl;
-        return 1;
-    }
+            case 2:
+                cout << "\nPrograma para registrar datos y calificaciones de un estudiante," << endl;
+                cout << "calcular su promedio y determinar su estado academico." << endl;
+                break;
 
-    // Entrada de calificaciones
-    cout << "Ingrese la calificacion 1 (0 a 10): ";
-    cin >> calificacion1;
-    cout << "Ingrese la calificacion 2 (0 a 10): ";
-    cin >> calificacion2;
-    cout << "Ingrese la calificacion 3 (0 a 10): ";
-    cin >> calificacion3;
-
-    // Validación de calificaciones (Nivel 2)
-    if (calificacion1 < 0 || calificacion1 > 10 ||
-        calificacion2 < 0 || calificacion2 > 10 ||
-        calificacion3 < 0 || calificacion3 > 10) {
-        cout << "Error: Alguna de las calificaciones no esta en el rango de 0 a 10." << endl;
-        return 1;
-    }
-
-    // Cálculo del promedio
-    promedio = (calificacion1 + calificacion2 + calificacion3) / 3.0;
-
-    // Impresión de resumen
-    cout << "\n=== RESUMEN DEL ESTUDIANTE ===" << endl;
-    cout << "Nombre: " << nombre << endl;
-    cout << "Edad: " << edad << " anos" << endl;
-    cout << "Promedio: " << promedio << endl;
-
-    // Determinación del estado mediante condicionales (Nivel 2)
-    cout << "Estado: ";
-    if (promedio >= 9.0) {
-        cout << "EXCELENTE" << endl;
-    } else if (promedio >= 7.0) {
-        cout << "APROBADO" << endl;
-    } else if (promedio >= 6.0) {
-        cout << "REGULAR (aprobado con lo minimo)" << endl;
-    } else {
-        cout << "REPROBADO" << endl;
-    }
+            case 3:
+                cout << "\nSaliendo del programa..." << endl;
+                break;
+        }
+    } while (opcion != 3);
 
     return 0;
+}
+
+// =======================================================
+// DEFINICIÓN DE FUNCIONES
+// =======================================================
+
+// 1. Imprime las opciones del menú
+void mostrarMenu() {
+    cout << "\n=== SISTEMA DE CALIFICACIONES ===" << endl;
+    cout << "1. Registrar estudiante" << endl;
+    cout << "2. Ver informacion del programa" << endl;
+    cout << "3. Salir" << endl;
+}
+
+// 2. Pide y valida la entrada de un entero dentro de un rango determinado
+int leerEntero(string mensaje, int min, int max) {
+    int valor = 0;
+    cout << mensaje;
+    
+    while (!(cin >> valor) || valor < min || valor > max) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Entrada invalida. Por favor, ingresa un entero entre " << min << " y " << max << ": ";
+    }
+    
+    return valor;
+}
+
+// 3. Pide y valida una calificación individual en el rango de 0 a 10
+float leerCalificacion(int numero) {
+    float calificacion = 0.0f;
+    cout << "Ingresa la calificacion " << numero << ": ";
+    
+    while (!(cin >> calificacion) || calificacion < 0.0f || calificacion > 10.0f) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Error: la calificacion debe estar entre 0 y 10. Intenta de nuevo: ";
+    }
+    
+    return calificacion;
+}
+
+// 4. Retorna el promedio exacto dividiendo la suma entre el número total de notas
+float calcularPromedio(float suma, int n) {
+    if (n <= 0) return 0.0f;
+    return suma / static_cast<float>(n);
+}
+
+// 5. Determina y retorna la categoría académica del alumno según su promedio
+string obtenerEstado(float promedio) {
+    if (promedio >= 9.0f) {
+        return "EXCELENTE";
+    } else if (promedio >= 7.0f) {
+        return "APROBADO";
+    } else if (promedio >= 6.0f) {
+        return "REGULAR (aprobado con lo minimo)";
+    } else {
+        return "REPROBADO";
+    }
+}
+
+// 6. Gestiona todo el flujo de la opción 1 (captura de datos y reporte)
+void registrarEstudiante() {
+    string nombreAlumno;
+    
+    // Limpiar salto de línea remanente antes de usar getline
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    cout << "\nIngresa el nombre del alumno: ";
+    getline(cin, nombreAlumno);
+
+    int edad = leerEntero("Ingresa la edad del alumno (0-120): ", 0, 120);
+    int cantidadCalificaciones = leerEntero("Cuantas calificaciones deseas registrar?: ", 1, 100);
+
+    float sumaCalificaciones = 0.0f;
+    int aprobadas = 0;
+    int reprobadas = 0;
+    float calificacionMasAlta = -1.0f;
+    float calificacionMasBaja = 11.0f;
+
+    for (int i = 1; i <= cantidadCalificaciones; i++) {
+        float calificacion = leerCalificacion(i);
+        sumaCalificaciones += calificacion;
+
+        if (calificacion >= 6.0f) {
+            aprobadas++;
+        } else {
+            reprobadas++;
+        }
+
+        if (calificacion > calificacionMasAlta) {
+            calificacionMasAlta = calificacion;
+        }
+        if (calificacion < calificacionMasBaja) {
+            calificacionMasBaja = calificacion;
+        }
+    }
+
+    float promedio = calcularPromedio(sumaCalificaciones, cantidadCalificaciones);
+    string estado = obtenerEstado(promedio);
+
+    cout << "\n--- RESUMEN DEL ESTUDIANTE ---" << endl;
+    cout << "Nombre: " << nombreAlumno << endl;
+    cout << "Edad: " << edad << endl;
+    cout << "Cantidad de calificaciones: " << cantidadCalificaciones << endl;
+    cout << "Promedio del ciclo: " << promedio << endl;
+    cout << "Estado: " << estado << endl;
+    cout << "Calificaciones aprobatorias: " << aprobadas << endl;
+    cout << "Calificaciones reprobatorias: " << reprobadas << endl;
+    cout << "Calificacion mas alta: " << calificacionMasAlta << endl;
+    cout << "Calificacion mas baja: " << calificacionMasBaja << endl;
 }

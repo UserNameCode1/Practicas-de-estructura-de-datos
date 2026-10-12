@@ -61,7 +61,7 @@ int main() {
             } else if (deposito > 10000) {
                 cout << "[ERROR] No puede depositar más de $10,000.00\n\n";
             } else {
-                saldo = saldo + deposito; // Suma directa
+                saldo = saldo + deposito; 
                 cout << "[OK] Depósito exitoso. Nuevo saldo: $" << saldo << "\n\n";
             }
 
@@ -75,7 +75,7 @@ int main() {
             } else if ((int)retiro % 100 != 0) {
                 cout << "[ERROR] Debe ser múltiplo de 100 (ejemplo: 200, 500, 1000).\n\n";
             } else {
-                // Calcular comisión
+                
                 double comision = 0;
                 if (retiro < 1000) {
                     comision = 15.00;
@@ -91,7 +91,7 @@ int main() {
                     cout << "\n";
                 } else {
                     saldo = saldo - totalCobrar; // Resta directa
-                    cout << "[OK] Retiro realizado con éxito.\n";
+                    cout << "OK Retiro realizado con éxito.\n";
                     if (comision > 0) {
                         cout << "Comisión aplicada: $15.00\n";
                     }
