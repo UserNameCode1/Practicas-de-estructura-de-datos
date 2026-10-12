@@ -4,9 +4,7 @@
 
 using namespace std;
 
-// =======================================================
-// PROTOTIPOS DE FUNCIONES
-// =======================================================
+/
 void mostrarMenu();
 int leerEntero(string mensaje, int min, int max);
 float leerCalificacion(int numero);
@@ -14,9 +12,7 @@ float calcularPromedio(float suma, int n);
 string obtenerEstado(float promedio);
 void registrarEstudiante();
 
-// =======================================================
-// FUNCIÓN PRINCIPAL
-// =======================================================
+
 int main() {
     int opcion = 0;
 
@@ -43,11 +39,9 @@ int main() {
     return 0;
 }
 
-// =======================================================
-// DEFINICIÓN DE FUNCIONES
-// =======================================================
 
-// 1. Imprime las opciones del menú
+
+// opciones del menú
 void mostrarMenu() {
     cout << "\n=== SISTEMA DE CALIFICACIONES ===" << endl;
     cout << "1. Registrar estudiante" << endl;
@@ -55,7 +49,7 @@ void mostrarMenu() {
     cout << "3. Salir" << endl;
 }
 
-// 2. Pide y valida la entrada de un entero dentro de un rango determinado
+
 int leerEntero(string mensaje, int min, int max) {
     int valor = 0;
     cout << mensaje;
@@ -69,7 +63,7 @@ int leerEntero(string mensaje, int min, int max) {
     return valor;
 }
 
-// 3. Pide y valida una calificación individual en el rango de 0 a 10
+// Pide y valida una calificación individual en el rango de 0 a 10
 float leerCalificacion(int numero) {
     float calificacion = 0.0f;
     cout << "Ingresa la calificacion " << numero << ": ";
@@ -83,13 +77,13 @@ float leerCalificacion(int numero) {
     return calificacion;
 }
 
-// 4. Retorna el promedio exacto dividiendo la suma entre el número total de notas
+// Retorna el promedio exacto dividiendo la suma entre el número total de notas
 float calcularPromedio(float suma, int n) {
     if (n <= 0) return 0.0f;
     return suma / static_cast<float>(n);
 }
 
-// 5. Determina y retorna la categoría académica del alumno según su promedio
+
 string obtenerEstado(float promedio) {
     if (promedio >= 9.0f) {
         return "EXCELENTE";
@@ -102,11 +96,11 @@ string obtenerEstado(float promedio) {
     }
 }
 
-// 6. Gestiona todo el flujo de la opción 1 (captura de datos y reporte)
+
 void registrarEstudiante() {
     string nombreAlumno;
     
-    // Limpiar salto de línea remanente antes de usar getline
+    
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "\nIngresa el nombre del alumno: ";
